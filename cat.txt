@@ -1,2 +1,56 @@
-Meow
+#include <iostream>
+#include <unistd.h>
+#include <stdio.h>
+#include <limits.h>
+#include <vector>
+#include <string>
+#include <cstring>
 
+using namespace std;
+
+void pwd();
+
+int main()
+{
+char delim[] = " \n\t";
+
+while (1)
+{
+	// Show prompt
+	cout << getcwd(NULL, 0) << ">> " << flush;
+	char command[128];
+	cin.getline(command, 128);
+
+	// Tokenize prompt
+	vector<char*> args;
+	char* prog = strtok(command, delim);
+	char* tmp = prog;
+	
+	while(tmp != NULL)
+	{
+		args.push_back(tmp);
+		tmp = strtok(NULL, delim);
+	}
+
+	char** argv = new char*[args.size() + 1];
+	
+	for(int k = 0; k < args.size(); k++)
+	{
+		argv[k] = args[k];
+	}
+
+	argv[args.size()] = NULL;
+
+	if(strcmp(command, "exit") == 0)
+	{
+		return 0;
+	}
+	else
+	{
+		// Implement code for handling other commands
+		continue;
+	}
+}
+
+return 0;
+}
